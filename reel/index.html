@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude — Motion Reel 2026</title>
+<style>
+  @font-face { font-family: "Archivo"; src: url(fonts/archivo-variable.woff2) format("woff2"); font-weight: 100 900; font-stretch: 62% 125%; }
+  @font-face { font-family: "Instrument Serif"; src: url(fonts/instrument-serif-italic.woff2) format("woff2"); font-style: italic; font-weight: 400; }
+  @font-face { font-family: "JetBrains Mono"; src: url(fonts/jetbrains-mono-variable.woff2) format("woff2"); font-weight: 100 800; }
+
+  :root {
+    --ink: #0C0C10; --paper: #F2EDE4; --verm: #FF4A1C; --ultra: #3A33FF; --acid: #D8FF3D;
+  }
+  html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+  #stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: hidden; background: var(--ink); transform-origin: 0 0; }
+  .layer { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+  #shake { overflow: visible; }
+  .scene { display: none; overflow: hidden; }
+  #gl { display: none; }
+
+  .world { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+  .word { position: absolute; white-space: nowrap; line-height: 1; }
+  .arch { font-family: "Archivo", sans-serif; font-weight: 900; font-variation-settings: 'wdth' 125, 'wght' 900; }
+  .serif { font-family: "Instrument Serif", serif; font-style: italic; font-weight: 400; }
+  .mono { font-family: "JetBrains Mono", monospace; font-variation-settings: 'wght' 500; letter-spacing: .08em; white-space: pre; }
+  .ch { display: inline-block; transform-origin: 50% 100%; }
+  .base { display: inline-block; width: 0; height: 0; vertical-align: baseline; }
+  .abs { position: absolute; }
+  .rule { position: absolute; height: 1px; transform-origin: 0 50%; }
+
+  #s1 { background: var(--paper); color: var(--ink); }
+  #s1 .mono { font-size: 13px; color: rgba(12, 12, 16, .62); }
+  #s6 { background: var(--ink); color: var(--paper); }
+  #s6 .mono { font-size: 17px; color: rgba(242, 237, 228, .72); }
+
+  #vignette { pointer-events: none; background: radial-gradient(ellipse 75% 75% at 50% 50%, rgba(0,0,0,0) 55%, rgba(0,0,0,.22) 100%); }
+  #flash { background: var(--paper); opacity: 0; pointer-events: none; }
+
+  /* live player chrome (hidden when rendering) */
+  #ui { position: fixed; left: 0; right: 0; bottom: 0; display: flex; gap: 14px; align-items: center; padding: 10px 16px; font: 500 12px/1 "JetBrains Mono", monospace; color: #F2EDE4; background: linear-gradient(transparent, rgba(0,0,0,.7)); opacity: 0; transition: opacity .3s; }
+  body:hover #ui, #ui:focus-within { opacity: 1; }
+  @media (hover: none) { #ui { opacity: 1; } }
+  #ui button:focus-visible, #start:focus-visible { outline: 2px solid #FF4A1C; outline-offset: 2px; }
+  #ui button { font: inherit; color: inherit; background: none; border: 1px solid rgba(242,237,228,.4); border-radius: 3px; padding: 6px 10px; cursor: pointer; }
+  #ui input { flex: 1; accent-color: #FF4A1C; }
+  #start { position: fixed; inset: 0; display: grid; place-items: center; cursor: pointer; font: 500 13px/1.6 "JetBrains Mono", monospace; letter-spacing: .12em; color: #F2EDE4; background: rgba(12,12,16,.55); text-align: center; }
+  #start b { display: block; font: 900 44px/1 "Archivo"; font-variation-settings: 'wdth' 125, 'wght' 900; letter-spacing: 0; margin-bottom: 14px; }
+  .render #ui, .render #start { display: none; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="shake" class="layer">
+    <canvas id="cv" class="layer" width="1920" height="1080"></canvas>
+    <canvas id="gl" class="layer" width="1920" height="1080"></canvas>
+    <div id="s1" class="layer scene"></div>
+    <div id="s6" class="layer scene"></div>
+  </div>
+  <div id="vignette" class="layer"></div>
+  <canvas id="hud" class="layer" width="1920" height="1080"></canvas>
+  <div id="flash" class="layer"></div>
+</div>
+
+<div id="start" role="button" tabindex="0" aria-label="Play the reel with sound"><div><b>▶ PLAY REEL</b>CLICK OR PRESS SPACE · SOUND ON</div></div>
+<div id="ui">
+  <button id="play">PLAY</button>
+  <span id="tc">00:00:00:00</span>
+  <input id="scrub" type="range" min="0" max="15" step="0.001" value="0">
+  <button id="loop">LOOP: ON</button>
+</div>
+<audio id="music" src="audio/soundtrack.wav" preload="auto"></audio>
+
+<script src="reel.js"></script>
+</body>
+</html>

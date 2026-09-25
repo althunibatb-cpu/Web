@@ -1,0 +1,15 @@
+{
+  "name": "claude-motion-reel",
+  "private": true,
+  "description": "A 15-second motion design showreel, rendered entirely from code.",
+  "scripts": {
+    "soundtrack": "python3 tools/soundtrack.py",
+    "stills": "node tools/stills.js --out stills --beats --every 1 --from 0.5 --to 32 --sheet",
+    "render": "node tools/render.js",
+    "render:draft": "node tools/render.js --draft --out dist/draft.mp4",
+    "serve": "npx http-server reel -p 8080 -c-1"
+  },
+  "devDependencies": {
+    "playwright": "^1.56.0"
+  }
+}
