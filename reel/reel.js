@@ -937,7 +937,9 @@ function buildS6() {
   const cap = capRatio(900, 'expanded') * fs * 0.985;
   const L = (W - NW) / 2, R = L + NW, base = 580;
   place(name, L, base);
-  S6.centers = name.letters.map(e => L + e.offsetLeft + e.offsetWidth / 2);
+  // keep the name centred while its width axis animates
+  name.el.style.left = CX + 'px';
+  name.el.style.transform = 'translateX(-50%)';
 
   S6.bar = el('div', 'abs', r);
   S6.bar.style.cssText += `left:${L}px;top:${base + 30}px;width:${NW}px;height:12px;background:${COL.verm};transform-origin:0 50%`;
@@ -978,12 +980,15 @@ function drawS6(t, b) {
   const fade = 1 - E.outCubic(inv(31.1, 31.4, b));
   const s = spring(t - T(28), 210, 15), s2 = spring(t - T(28), 90, 11);
   const breathe = inv(29, 29.8, b);
-  S6.name.letters.forEach((e, i) => {
-    const cx = S6.centers[i];
-    const burst = (CX - cx) * (1 - s);
+  const L6 = S6.name.letters;
+  L6.forEach((e, i) => {
     const wd = clamp(S6BASE + 13 * (1 - s2) + 7 * breathe * Math.sin(TAU * (b - 29) / 2.2 - i * 0.7), 62, 125);
     setVar(e, lerp(wd, 62, fold), 900);
-    const tx = burst + (CX - cx) * fold;
+  });
+  const left = CX - S6.name.el.offsetWidth / 2;
+  L6.forEach((e, i) => {
+    const cx = left + e.offsetLeft + e.offsetWidth / 2;
+    const tx = (CX - cx) * (1 - s) + (CX - cx) * fold;
     const sc = lerp(0.15, 1, clamp(s, 0, 1.3)) * (1 - fold);
     e.style.transform = `translateX(${tx.toFixed(2)}px) scale(${Math.max(sc, 0).toFixed(4)}, ${Math.max(lerp(0.15, 1, clamp(s, 0, 1.3)), 0).toFixed(4)})`;
     e.style.opacity = s > 0 ? 1 : 0;
@@ -1119,7 +1124,8 @@ function applyShake(t) {
     y += env * 0.8 * Math.sin(dt * 71 + im.b * 2.3);
     r += env * 0.0009 * Math.sin(dt * 57 + im.b);
   }
-  const s = 1 + amp * 2.4 / W;
+  // overscan so translation + rotation never reveal the stage edge
+  const s = 1 + amp * 0.0045 + 0.002;
   shakeEl.style.transform = amp > 0.01 ? `translate(${x.toFixed(2)}px, ${y.toFixed(2)}px) rotate(${r.toFixed(5)}rad) scale(${s.toFixed(5)})` : '';
 }
 function applyFlash(b) {
