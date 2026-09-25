@@ -44,8 +44,11 @@
   #ui button:focus-visible, #start:focus-visible { outline: 2px solid #FF4A1C; outline-offset: 2px; }
   #ui button { font: inherit; color: inherit; background: none; border: 1px solid rgba(242,237,228,.4); border-radius: 3px; padding: 6px 10px; cursor: pointer; }
   #ui input { flex: 1; accent-color: #FF4A1C; }
-  #start { position: fixed; inset: 0; display: grid; place-items: center; cursor: pointer; font: 500 13px/1.6 "JetBrains Mono", monospace; letter-spacing: .12em; color: #F2EDE4; background: rgba(12,12,16,.55); text-align: center; }
-  #start b { display: block; font: 900 44px/1 "Archivo"; font-variation-settings: 'wdth' 125, 'wght' 900; letter-spacing: 0; margin-bottom: 14px; }
+  #start { position: fixed; inset: 0; display: grid; place-items: end center; padding-bottom: 13vh; cursor: pointer; background: linear-gradient(transparent 55%, rgba(12,12,16,.55)); }
+  #start div { display: flex; align-items: center; gap: 14px; padding: 14px 22px 14px 18px; border-radius: 999px; font: 600 13px/1 "JetBrains Mono", monospace; letter-spacing: .14em; color: #F2EDE4; background: rgba(12,12,16,.78); border: 1px solid rgba(242,237,228,.28); transition: transform .2s, border-color .2s; }
+  #start:hover div { transform: scale(1.04); border-color: #FF4A1C; }
+  @media (prefers-reduced-motion: reduce) { #start div { transition: none; } #start:hover div { transform: none; } }
+  #start b { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: #FF4A1C; color: #0C0C10; font-size: 13px; letter-spacing: 0; padding-left: 3px; box-sizing: border-box; }
   .render #ui, .render #start { display: none; }
 </style>
 </head>
@@ -62,7 +65,7 @@
   <div id="flash" class="layer"></div>
 </div>
 
-<div id="start" role="button" tabindex="0" aria-label="Play the reel with sound"><div><b>▶ PLAY REEL</b>CLICK OR PRESS SPACE · SOUND ON</div></div>
+<div id="start" role="button" tabindex="0" aria-label="Play the reel with sound"><div><b>▶</b>PLAY REEL · SOUND ON</div></div>
 <div id="ui">
   <button id="play">PLAY</button>
   <span id="tc">00:00:00:00</span>
