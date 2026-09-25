@@ -4,6 +4,8 @@ A 15-second motion design showreel: six scenes, 32 beats at 128 BPM, 1080p60. Th
 footage, no After Effects project, and no stock audio. Every pixel and every sample comes from
 code in this repo.
 
+[![The sign-off frame of the reel](dist/poster.jpg)](dist/showreel.mp4)
+
 **▶ [`dist/showreel.mp4`](dist/showreel.mp4)**, or open `reel/index.html` to watch it play live
 in the browser (space to play, ←/→ to step frames).
 
@@ -56,8 +58,9 @@ with libx264 (`pip install imageio-ffmpeg` provides one; set `FFMPEG=` to use yo
 ```sh
 npm install                       # playwright
 python3 tools/soundtrack.py       # → reel/audio/soundtrack.wav
-node tools/render.js              # → dist/showreel.mp4   (≈25 min on 4 CPU cores)
+node tools/render.js              # → dist/showreel.mp4   (≈22 min on 4 CPU cores)
 node tools/render.js --draft      # quick 30 fps preview without motion blur
 node tools/render.js --encode-only --crf 23 --grain 0 --out dist/web.mp4   # re-encode the master
+node tools/render.js --patch 13.1-15   # re-render a time range and splice it into the master
 node tools/stills.js --beats --every 1 --from 0.5 --to 32 --sheet --out stills   # contact sheet
 ```
