@@ -16,7 +16,7 @@ Moving Out–style co-op moving game with online queues. It's already filled in,
 **Why Rojo from day one:** in most games the kit lets you start on Script Sync and switch
 before M2. This game is multiplayer from the first task, because carrying a couch together is
 the core loop. It also runs one place in two modes (lobby and match), keeps pure rules that
-need Jest tests (scoring, truck packing), and saves data by M2. That's the case the kit says
+need Jest tests (medals, crew scaling, bonus objectives), and saves data by M2. That's the case the kit says
 needs the stronger checks.
 
 ---

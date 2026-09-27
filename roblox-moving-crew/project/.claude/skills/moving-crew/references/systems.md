@@ -10,19 +10,20 @@ src/
   server/                         → ServerScriptService
     Main.server.luau              Bootstrap: decides the mode and starts only that mode's services
     Services/
-      Common/  PlayerData  Analytics  Cosmetics
-      Lobby/   PadService  MatchLauncher  ShopService
-      Match/   MatchConfig  JobDirector  MapLoader  ItemService  CarryService
-               ThrowService  BreakService  TruckService  ResultsService  ReturnService
+      Common/  PlayerData  Analytics  Movers
+      Lobby/   PadService  MatchLauncher
+      Match/   MatchConfig  JobDirector  JobMap  MapLoader  ItemService  CarryService
+               ThrowService  SlapService  BreakService  HazardService  TruckService
+               EventLog  ResultsService  ReturnService
     Dev/       MapLint (Studio-only)  DevMatch (Studio-only fallback config)
   client/                         → StarterPlayer.StarterPlayerScripts
     Main.client.luau              Starts the controllers for the current mode
-    Controllers/  Input  Target  Carry  Throw  Pack  Camera  Cutaway  Effects  Sound
-    UI/           Hud  Prompt  MovingList  Crew  Toasts  JobIntro  Results
-                  Pad  Shop  Locker  Settings  TeleportScreen
+    Controllers/  Input  Target  Carry  Throw  Slap  Camera  Cutaway  Effects  Sound
+    UI/           Hud  Prompt  MovingList  Objectives  Crew  Toasts  JobMap  JobIntro
+                  Results  Pad  Settings  TeleportScreen
   shared/                         → ReplicatedStorage
-    Config/   ItemDefs  JobDefs  Economy  Trucks  Cosmetics  Tuning
-    Rules/    Scoring  CrewScaling  TruckGrid   (pure; *.spec.luau tests beside them)
+    Config/   ItemDefs  JobDefs  Tuning  Assist  Movers
+    Rules/    Medals  CrewScaling  Objectives   (pure; *.spec.luau tests beside them)
     Net.luau  Every remote, defined once
     Types.luau
     Mode.luau Reads the mode attribute for any script
@@ -46,28 +47,31 @@ for them.
 
 It sets `Workspace.GameMode` and starts only that mode's services plus Common. The client reads
 `Mode.get()` and starts the matching controllers. In Studio, Match mode uses `Dev/DevMatch` for
-its config (job ID from a `DevJobId` attribute, and the crew = whoever is in the server).
+its config (the crew = whoever is in the server; the first player is the leader).
 
 ## Attribute contract
 
 | On | Attribute | Type | Written by |
 |---|---|---|---|
 | Workspace | `GameMode` | "Lobby" / "Match" | Bootstrap |
-| Workspace | `JobId`, `JobState` | string ("Loading", "Intro", "Countdown", "Playing", "Results") | JobDirector |
+| Workspace | `JobId`, `JobState` | string ("JobMap", "Loading", "Intro", "Countdown", "Playing", "Results") | JobDirector |
 | Workspace | `JobStartTime` | number (`workspace:GetServerTimeNow()`) | JobDirector |
-| Workspace | `GoldTime`, `SilverTime`, `BronzeTime`, `CapTime` | seconds, crew-scaled | JobDirector |
-| Workspace | `CrewSize`, `TruckTier` | number, string | JobDirector |
+| Workspace | `GoldTime`, `SilverTime`, `BronzeTime` | seconds, crew-scaled and assist-scaled | JobDirector |
+| Workspace | `CrewSize`, `LeaderId` | number, UserId | JobDirector, MatchConfig |
+| Workspace | `Assist` | string list, e.g. "ExtraTime,Lighter" ("" = off) | JobMap |
 | Item model | `ItemId` | string (key in ItemDefs) | Map author |
 | Item model | `Uid` | string, unique per job | ItemService |
-| Item model | `ListRole` | "Required" / "Optional" | ItemService (from CrewScaling) |
+| Item model | `OnList` | boolean | ItemService |
 | Item model | `HeldBy`, `HeldBy2` | UserId, 0 = none | CarryService |
-| Item model | `Packed`, `Broken` | boolean | TruckService, BreakService |
-| Breakable | `BreakType` ("Window", "Door"), `Broken` | string, boolean | Map author, BreakService |
+| Item model | `InTruck`, `Broken` | boolean | TruckService, BreakService |
+| Breakable | `BreakType` ("Window"), `Broken` | string, boolean | Map author, BreakService |
+| Slappable (lever, switch) | `On` | boolean | SlapService |
+| Hazard | `HazardType`, `Active` | string, boolean | Map author, HazardService |
 | Player | `Holding` | item Uid or "" | CarryService |
-| Truck pad | `JobId`, `Capacity`, `Members`, `LeavesAt` | string, number, number, server time | PadService |
+| Crew pad | `Capacity` (4), `Members`, `LeavesAt` | number, number, server time | PadService |
 
-**CollectionService tags:** `MovableItem`, `Breakable`, `Wall`, `Roof`, `Floor2`, `TruckPad`,
-`CrewSpawn`.
+**CollectionService tags:** `MovableItem`, `Breakable`, `Slappable`, `Hazard`, `ArcadeToken`,
+`ObjectiveZone`, `Wall`, `Roof`, `Floor2`, `CrewPad`, `CrewSpawn`.
 
 **Collision groups:** `Characters`; `Items`; `HeldItems` (doesn't collide with `Characters`, so a
 carried item never pushes or flings its carrier); `Debris` (collides with the world only).
@@ -79,15 +83,16 @@ is ignored silently; never trust a client-sent value that isn't in this table.
 
 | Remote | Direction | Payload | Server checks | Rate |
 |---|---|---|---|---|
-| `Grab` | C→S | item Uid | item exists, not broken, not packed; hands empty; within 8 studs; a free grip | 5/s |
+| `Grab` | C→S | item Uid | item exists, not broken; hands empty; within 8 studs; a free grip | 5/s |
 | `Drop` | C→S | — | is holding | 5/s |
 | `Throw` | C→S | direction (Vector3), charge (0–1) | holding a throwable; direction unitized and flattened; charge clamped | 3/s |
-| `Place` | C→S | cell x, cell z, rotation 0–3 | holding; within 12 studs of the truck; `TruckGrid.canPlace` | 3/s |
-| `Unpack` | C→S | item Uid | item packed; within 12 studs; hands empty | 1/s |
-| `HelpPing` | C→S | — | holding a heavy item alone | 1 per 3 s |
-| `VotePlayAgain`, `BackToLobby` | C→S | — | JobState is "Results" | 1/s |
+| `Slap` | C→S | direction (Vector3) | alive; direction unitized; target found server-side in a short cone | 3/s |
+| `HelpPing` | C→S | — | dragging a heavy item alone | 1 per 3 s |
+| `PickJob` | C→S | job ID | sender is the leader; JobState is "JobMap"; the job is unlocked for the leader | 1/s |
+| `SetAssist` | C→S | option list | sender is the leader; JobState is "JobMap"; options exist in Config | 2/s |
+| `Retry`, `BackToLobby` | C→S | — | JobState is "Results" | 1/s |
 | `LeavePad` | C→S | — | on a pad | 1/s |
-| `Buy`, `Equip` | C→S | item ID | the ID exists; price and ownership (ShopService) | 2/s |
+| `SetMover` | C→S | character ID, color | unlocked for this player | 1/s |
 | `Toast` | S→C | kind, data | — | — |
 | `Results` | S→C | the results payload | — | — |
 
@@ -96,66 +101,79 @@ is ignored silently; never trust a client-sent value that isn't in this table.
 | Service | Mode | Owns | Notes |
 |---|---|---|---|
 | PlayerData | both | saved data, via ProfileStore | Session-locked; exposes read-only replicas to each owner |
-| Analytics | both | funnel and economy events | AnalyticsService; added in M5 |
-| Cosmetics | both | applying uniforms, hats, and paint | Via HumanoidDescription |
-| PadService | Lobby | pad membership and countdowns | Polls each pad's zone every 0.25 s with a spatial query; never `.Touched` |
+| Analytics | both | funnel events | AnalyticsService; added in M5 |
+| Movers | both | which mover character (or avatar) each player uses | Applies the rig or HumanoidDescription |
+| PadService | Lobby | crew pad membership and countdowns | Polls each pad's zone every 0.25 s with a spatial query; never `.Touched` |
 | MatchLauncher | Lobby | reserving servers and teleporting crews | See `matchmaking.md` |
-| ShopService | Lobby | purchases and equips | Prices from Config; validates ownership |
-| MatchConfig | Match | loading the crew, job, and truck | MemoryStore by `game.PrivateServerId`; DevMatch in Studio |
+| MatchConfig | Match | loading the crew and its leader | MemoryStore by `game.PrivateServerId`; DevMatch in Studio |
+| JobMap | Match | the leader's job pick and assist options | Validates against the leader's unlocks |
 | JobDirector | Match | the job state machine and timer | See below |
 | MapLoader | Match | cloning and destroying job maps | Fresh clone every job |
-| ItemService | Match | Uids, list roles, and the moving list | Uses CrewScaling |
-| CarryService | Match | grips, `HeldBy`, network ownership, and walk speed | See `carry-and-throw.md` |
+| ItemService | Match | Uids, the moving list | |
+| CarryService | Match | grips, `HeldBy`, drag vs carry, network ownership, walk speed, jump rules | See `carry-and-throw.md` |
 | ThrowService | Match | throws and catches | See `carry-and-throw.md` |
-| BreakService | Match | fragile items, windows, and doors | Impact speed thresholds from Tuning |
-| TruckService | Match | the truck grid and packing | See `truck-packing.md` |
-| ResultsService | Match | stars, pay, saves, and awards | Uses Scoring |
-| ReturnService | Match | votes, play again, and back to lobby | See `matchmaking.md` |
+| SlapService | Match | slap targets and effects; levers and switches | See `carry-and-throw.md` |
+| BreakService | Match | fragile items and windows | Impact speed thresholds from Tuning |
+| HazardService | Match | hazards (fire, ice, sprinklers, moving furniture…) | Turned off by the "No hazards" assist option |
+| TruckService | Match | what's in the truck; server ownership of resting items | See `truck-packing.md` |
+| EventLog | Match | a per-job log of events for bonus objectives | Plain data: packed, broken, smashed, zoneEntered, slapped |
+| ResultsService | Match | time, medal, objectives, coins, unlocks, saves | Uses Medals and Objectives |
+| ReturnService | Match | retry, next job, or back to the lobby | See `matchmaking.md` |
 
 ### JobDirector state machine
 
 ```
-Loading ──► Intro (4 s job card) ──► Countdown (3 s, movement locked) ──► Playing
-   ▲                                                                  │
-   │                    all required items packed, or CapTime reached │
-   │                                                                  ▼
-   └───── "Play again" votes (20 s window) ◄──────────────────── Results
-                        no votes / "Back to lobby" ──► ReturnService teleports to the lobby
+JobMap (leader picks, 30 s idle → next unlocked job) ──► Loading ──► Intro (4 s)
+   ▲                                                                     │
+   │                                                                     ▼
+   └──── Results (20 s, or Retry) ◄──── every list item in the truck ◄── Countdown (3 s) ──► Playing
+                     │
+                     └── Back to lobby ──► ReturnService teleports that player to the lobby
 ```
 
-- **Loading:** MapLoader clones the job; ItemService assigns Uids and list roles; TruckService spawns the crew's best truck; players move to `CrewSpawn` points.
-- **Playing:** `JobStartTime` is set once; clients compute elapsed time from `workspace:GetServerTimeNow()`. The job ends when TruckService reports every `Required` item packed, or at `CapTime`.
-- **Results:** ResultsService computes stars and pay with Scoring, grants cash, saves, and sends the `Results` payload.
+- **Loading:** MapLoader clones the job (with its truck); ItemService assigns Uids; HazardService applies the assist options; players move to `CrewSpawn` points.
+- **Playing:** `JobStartTime` is set once; clients compute elapsed time from `workspace:GetServerTimeNow()`. The job ends when TruckService reports every non-broken list item `InTruck` and at rest for 1 s. There's no time-out (parity default; see original-parity.md).
+- **Results:** ResultsService computes the medal with Medals, evaluates the EventLog with Objectives, saves, and sends the `Results` payload. Then back to JobMap.
 - Every state change cleans up the previous state's connections (use a Trove per state).
+
+## Assist Mode (`shared/Config/Assist`)
+
+The original's five options. The crew leader sets them on the job map; everyone sees an Assist
+badge; saves record `assistUsed` for that run.
+
+| Option | Effect |
+|---|---|
+| `ExtraTime` | Medal times ×1.5 or ×2 (the leader picks) |
+| `VanishOnDelivery` | An item that enters the truck's load zone counts and disappears; no stacking |
+| `NoHazards` | HazardService leaves every hazard inactive |
+| `Lighter` | Heavy items move at full speed with one carrier |
+| `SkipJob` | Marks the job finished with no medal and unlocks the next one |
 
 ## Client controllers
 
 | Controller | Does |
 |---|---|
-| Input | Maps PC, phone, and gamepad to actions: Grab/Drop, Throw (hold), Rotate, Help. Shows mobile buttons for the current context only. |
-| Target | Picks the single best interactable (nearest item, weighted toward facing), every 0.1 s |
-| Carry | Heavy-item tether for your own character; lead-carrier item driving (see carry-and-throw.md) |
+| Input | Maps PC, phone, and gamepad to the actions: Grab/Drop, Throw (hold), Slap, Jump, Help. Shows phone buttons for the current context only. |
+| Target | Picks the single best interactable (nearest item, lever, or teammate for catches), every 0.1 s |
+| Carry | Heavy-item tether for your own character; lead-carrier item driving |
 | Throw | Charge, arc preview, landing ring, and aim assist |
-| Pack | Ghost preview on the truck grid, rotation, and the Place request |
+| Slap | Slap animation and a local hit flash; the server decides the effect |
 | Camera | The Mover cam in matches (fixed pitch, map-set yaw, smooth follow); Classic in the lobby or by setting |
-| Cutaway | Hides `Roof`, fades `Wall` parts between the camera and your character, and hides `Floor2` when you're downstairs |
-| Effects | Shards, dust, smash bursts, glow on list items (see the Highlight budget) |
+| Cutaway | Hides `Roof`, fades `Wall` parts between the camera and your character, hides `Floor2` downstairs |
+| Effects | Shards, dust, slap stars, glow on list items (within the Highlight budget) |
 | Sound | SoundGroups, variation, and event sounds from attributes and toasts |
 
 ## Pure rules (`shared/Rules`)
 
 ```lua
-Scoring.stars(elapsed, medals, completed, anyFragileBroken) -> number  -- 0..3
-Scoring.pay(summary, economy) -> { items, fragileBonus, optional, starBonus,
-                                   firstTimeBonus, breakage, total }
-CrewScaling.roles(jobDef, crewSize) -> { [itemUid]: "Required" | "Optional" }
-CrewScaling.medals(jobDef, crewSize) -> { gold, silver, bronze, cap }   -- interpolates the measured 1/2/4/8
-TruckGrid.new(w, d, h) / :canPlace(footprint, rot, x, z) / :place(...) / :remove(uid)
-         / :findSpot(footprint, nearX, nearZ) / :fillRatio()
+Medals.forTime(elapsed, times) -> "Gold" | "Silver" | "Bronze" | "None"
+CrewScaling.times(jobDef, crewSize, assist) -> { gold, silver, bronze }
+Objectives.evaluate(objectiveDefs, eventLog, summary) -> { boolean, boolean, boolean }
 ```
 
-Each has Jest tests for its edge cases. balance-analyst's simulations require these same
-modules through Lune.
+Objective definitions are data in JobDefs, built from a small set of types (see `maps.md`:
+objective hooks). Each rule module has Jest tests for its edge cases. balance-analyst's
+simulations require these same modules through Lune.
 
 ## Saved data (ProfileStore template, version 1)
 
@@ -164,23 +182,25 @@ modules through Lune.
 ```lua
 {
   Version = 1,
-  Cash = 0,
-  Stars = {},                -- [jobId] = best stars, 0–3
-  Owned = {                  -- sets: [id] = true
-    Trucks = { StarterVan = true }, Gadgets = {}, Hats = {}, Uniforms = { Default = true }, Paints = { Default = true },
-  },
-  Equipped = { Gadget = "", Hat = "", Uniform = "Default", Paint = "Default" },
-  Stats = { Jobs = 0, ItemsPacked = 0, Throws = 0, Catches = 0, Smashes = 0, FragileBroken = 0 },
+  Jobs = {},        -- [jobId] = { bestTime = number?, medal = "None"|"Bronze"|"Silver"|"Gold",
+                    --             objectives = { false, false, false }, finished = bool, assistUsed = bool }
+  Unlocked = { StarterHouse = true },   -- sets: [jobId] = true
+  Coins = 0,        -- earned = number of objectives done; spent on arcade unlocks
+  Arcade = {},      -- [arcadeId] = true
+  Tokens = {},      -- [tokenId] = true (hidden arcade tokens found)
+  Mover = { Character = "Default", Color = 1, UseAvatar = false },
+  MoversUnlocked = { Default = true },
   Settings = { Music = 0.7, SFX = 1, Camera = "Mover", ReduceShake = false, UIScale = 1 },
+  Stats = { Jobs = 0, ItemsPacked = 0, Throws = 0, Slaps = 0, Smashes = 0, FragileBroken = 0 },
   TutorialDone = false,
 }
 ```
 
 ## Budgets for this game
 
-- **Movable items per job:** 60 at most, all unanchored with Box collision.
-- **Highlights:** Roblox renders a limited number of Highlight instances at once (check the current cap in the docs; it has been 31). Use a Highlight only for the targeted item and up to 12 nearest list items; everything else gets a small billboard dot or nothing.
+- **Movable items per job:** 60 at most, all unanchored with simple collisions.
+- **Highlights:** Roblox renders a limited number of Highlight instances at once (check the current cap in the docs; it has been 31). Use a Highlight only for the targeted item and up to 12 nearest list items; the rest get a small billboard dot or nothing.
 - **Shards:** client-side only, at most 40 alive, removed within 3 s.
 - **Map parts:** 6,000 per job, measured with rbx-scene-analysis.
-- **Streaming:** keep StreamingEnabled off unless T1.1 chooses Server Authority (which requires it). If it's on, set item and truck models to Atomic or Persistent streaming so a carried item never half-exists on a client.
+- **Streaming:** keep StreamingEnabled off unless T1.1 chooses Server Authority (which requires it). If it's on, set item and truck models to Atomic or Persistent streaming.
 - Plus the kit's budgets in AGENTS.md (60 FPS on the lowest phone; memory flat after ten join/leave cycles, and after five job loops).

@@ -1,72 +1,59 @@
-# Truck packing
+# The physics truck
 
-The truck is the second puzzle. Bad packing wastes space, and when the truck fills up the crew
-has to repack. It's Tetris dropped into a box, and it's readable at a glance.
+Like the original, the truck is a real physics container. There's no grid and no snapping.
+Items stack on each other; big items first leaves room, small items first wastes it; and a bad
+stack spills out the back. It's the second puzzle of every job.
 
-## v0 (M1, T1.7): a loading volume
+## The truck model
 
-An invisible part covers the truck bed. An item counts as loaded when its center is inside the
-volume and its speed has stayed under 2 studs/s for 0.5 s. No grid yet. This proves the loop.
+```
+Truck (Model, part of the job map; attribute Size = "Small" | "Large")
+  Body        the visible mesh (CanCollide off)
+  Bed         the floor (collides)
+  WallL, WallR, Front, Roof   invisible collision parts that match the visible box
+  Lip         a low (1-stud) ledge at the open back: items resting past it tip out
+  LoadZone    an invisible, non-colliding part filling the inside of the box, from the bed to the roof, ending at the lip
+  Ramp        optional: a ramp at the back for dragging heavy items up
+```
 
-## v1 (M2, T2.1): the grid
+The truck's size is set by the job, never upgraded. Small jobs use the small truck, big jobs the
+large one. The level designer checks that the full list fits (see "Level-design rule").
 
-### The grid
+## What counts as loaded
 
-- A truck is a W×D×H grid of 4-stud cells. The truck model holds an invisible `Grid` part whose corner is cell (0,0,0).
+- An item is `InTruck` when its center is inside `LoadZone` and its speed has stayed under 1.5 studs/s for 0.5 s.
+- It stops counting the moment its center leaves the zone. The moving list un-ticks it, and a toast names it: "Couch fell out!"
+- Items being held never count, even inside the truck. Let go, and it counts once it settles.
+- The job ends when every non-broken list item has been `InTruck` continuously for 1 s. That 1-second hold stops a tumbling stack from finishing the job by accident.
+- Extra items that aren't on the list can go in the truck; they just take up room.
 
-| Truck | Grid (W×D×H) | Cells |
-|---|---|---|
-| Starter Van | 4×6×3 | 72 |
-| Box Truck | 5×7×3 | 105 |
-| Big Rig | 6×9×3 | 162 |
+## Making physics stacking fair (T2.1)
 
-- Item footprints come from ItemDefs as W×D×H cells (the L-couch uses a cell list instead of a box). Rotation turns the footprint in 90° steps around the vertical axis only.
+Online physics is where this breaks down if left to defaults. The rules:
 
-### Gravity drop
+- **Server-owned when resting.** When an item is dropped or lands inside the load zone, the server takes network ownership (`SetNetworkOwner(nil)`). Every client sees the same stack, and no client can "hold up" a stack that the server sees falling.
+- **High friction, low bounce** on the bed, the walls, and every item (`CustomPhysicalProperties`: friction about 0.9, elasticity about 0.05) so stacks settle instead of sliding.
+- **Settle damping.** An item inside the load zone moving slower than 3 studs/s gets extra linear and angular damping (a gentle `LinearVelocity`/`AngularVelocity` toward zero, removed when it's grabbed). This stops the endless jitter that makes Roblox stacks creep apart.
+- **Sleep.** Once an item has been still for 2 s inside the truck, leave it to Roblox's physics sleep. Don't anchor it, because players must be able to knock a bad stack loose and repack it.
+- **Collision shapes.** Items use simple collisions (a box, or a few boxes for awkward shapes). Detailed mesh collisions make stacks unpredictable.
 
-A placement picks a column (x, z) and a rotation. The item drops to the lowest height where every
-cell of its footprint is free: its bottom sits on the highest occupied cell under any part of its
-footprint. Overhangs are allowed and leave holes underneath. That's the Tetris: careless
-placement wastes space.
+Tune these with the user in T2.1. The goal is the original's feel: packing mostly works if you're
+sensible, and sloppy packing visibly spills.
 
-A placement fails (red ghost) when the item would stick out of the top or sides of the grid.
+## Assist: vanish on delivery
 
-### Placing (held items)
-
-1. Within 12 studs of the truck, the Pack controller shows a **ghost** of the held item on the grid, at the column nearest to where the player is aiming: green when `canPlace` is true, red when it isn't.
-2. Rotate: R, a Rotate button on phones, or Y on a gamepad.
-3. Grab/Drop while the ghost shows places it: the client sends `Place(x, z, rot)`; the server re-runs `canPlace`, snaps the item to the cell's position, anchors it, sets `Packed`, and updates the grid.
-4. Heavy items are placed by the lead carrier; both carriers let go.
-
-### Thrown items (auto-pack)
-
-A small item that lands inside the truck's volume is auto-packed by `TruckGrid:findSpot`: the
-lowest free spot nearest to where it landed. If nothing fits anywhere, it **bounces out** with a
-"Truck full!" toast. That's how badly packed trucks spit items out.
-
-### Unpacking
-
-Hold Grab on a packed item for 1 s (a fill ring shows the hold) to pull it out. Only items with
-nothing packed on top can come out; the others show a small lock icon. This lets crews repack
-without making it easy for a stranger to empty the truck.
-
-### Completion
-
-TruckService tells JobDirector when every `Required` item is `Packed`. Packed optional items pay
-their bonus.
+With the `VanishOnDelivery` assist, an item that enters the load zone (held or not) counts
+immediately and fades out. There's no stacking at all, like the original's option.
 
 ## Level-design rule
 
-For every job, the footprint of the full list at the largest crew size must be **≤ 85% of the
-Starter Van's cells**, so every job is solvable with the free truck. A bigger truck makes packing
-easier and leaves room for optional items (more cash). The map lint checks this rule.
+For every job, a sensible pack (heavy items first, flat items flat) of the full list must fit
+with room to spare. Check it in Studio before the job ships: the builder runs a **test pack**
+script that places each list item in order, biggest first, and reports whether everything
+settled inside. A job whose test pack fails needs the large truck or a shorter list. The map
+lint runs the same test pack.
 
-## Tests (Jest, `TruckGrid.spec.luau`)
+## Tests
 
-- An item fits on an empty grid; its rotated version fits where only the rotation fits.
-- Gravity drop lands on the highest cell under the footprint, and overhangs leave holes.
-- An item that would exceed the height or sides fails.
-- The L-shape fits in an L-shaped gap and fails in a 2×2 gap.
-- `findSpot` returns the lowest spot nearest a point, or nil when full.
-- Remove frees exactly the item's cells; items underneath others can't be removed.
-- `fillRatio` is correct after a mix of places and removes.
+- Jest can't test physics, so the pure parts are small: the "counts as loaded" rule (center inside, speed under the limit for 0.5 s) is a pure function of samples, with tests.
+- Physics is verified by the T2.1 playtests: 10 test stacks of the StarterHouse list with big items first (all fit) and small items first (some spill), with 2 clients agreeing on the result each time.
