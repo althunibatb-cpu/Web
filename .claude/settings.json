@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch",
+      "Read",
+      "Edit(./games/**)",
+      "Edit(./research/**)",
+      "Edit(./kb/**)",
+      "Edit(./tools/analysis/**)",
+      "Bash(python3 tools/yt.py:*)",
+      "Bash(python3 tools/kb.py:*)",
+      "Bash(python3 tools/status.py:*)",
+      "Bash(python3 tools/analysis/:*)",
+      "Bash(yt-dlp:*)",
+      "Bash(ffmpeg:*)",
+      "Bash(ls:*)",
+      "Bash(mkdir:*)",
+      "mcp__youtube-transcript",
+      "mcp__reddit",
+      "mcp__playwright"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      { "hooks": [ { "type": "command", "command": "python3 tools/status.py" } ] }
+    ]
+  }
+}

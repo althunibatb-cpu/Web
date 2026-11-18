@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "youtube-transcript": { "command": "npx", "args": ["-y", "@kimtaeyoon83/mcp-server-youtube-transcript"] },
+    "reddit": { "command": "npx", "args": ["-y", "reddit-mcp-server"] },
+    "playwright": { "command": "npx", "args": ["-y", "@playwright/mcp@latest"] }
+  }
+}
