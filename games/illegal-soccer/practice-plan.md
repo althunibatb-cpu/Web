@@ -1,20 +1,30 @@
-# Practice plan: Illegal Soccer
-Assumes PC, about 5 h/week, 45-60 min sessions. Drill in a **private server with bots** (owners can add bots and set match length).
+# Practice plan: mastery track
+Assumes PC and about 5 h/week. Do every drill in a **private server**: bots, a chosen map, match length, items off for Legal practice, and custom jump and ball physics. Use lobby wait time for flick-catch reps.
 
-## Session template (50 min)
-| Block | Min | What | Success criteria |
+## Week 0: settle the unknowns (one 30-min session; log the answers in progress-log.md)
+1. Settings → Keybinds: which input curves? Bind **cancel to a side mouse button.** Set Curve Sensitivity to 75%.
+2. Time the stamina regen from empty to full.
+3. Have a friend tackle you right after a keeper catch. Is the 6 s immunity real?
+4. Note the overtime format the next time a match goes to OT.
+
+## Session template (60 min)
+| Block | Min | Drill | Pass mark |
 |---|---|---|---|
-| Warm-up | 5 | Check keybinds; 20 passes + lobs to a wall | Clean touches, no missed inputs |
-| Skill 1 | 15 | Flick shots on the move (see mechanics/flick-shot.md) | 12/20 on target, full charge every time |
-| Skill 2 | 10 | Curves: 10 each way per wing + 10 wall-kick curves | 8/10 bend the intended way |
-| Defense | 5 | Slide only in reach vs bots; keeper reps (wait, read the indicator) | 0 missed slides from out of range |
-| Matches | 15 | Ranked or public, **one focus per match** (see below) | Self-review after each match |
+| Warm-up | 5 | Wall passes + flick-catches | 20 clean |
+| Shooting | 15 | Rotate daily: curves (both ways, both wings) → wall-kick & flick-up curves → volleys/bicycle | 8/10 bend correctly; 50% on target vs the **in-match** keeper |
+| Fakes | 10 | Shot cancel vs a human keeper (friend) | Keeper bites ≥1/3; 0 accidental shots at them |
+| Ball control | 10 | Friend slides at you: flick-catch / charge-bait / timed dodge | Keep the ball 12/20 |
+| Keeper | 5 | 15 mixed shots | No early dives; outlet within 2 s |
+| Ranked | 15 | 2–3 matches, **one focus each** | Log it straight after |
 
-## Weekly focus rotation
-1. **Week 1: Don't feed.** No ball-hogging, pass beside/behind the keeper, sprint in bursts.
-2. **Week 2: Flick shots in matches.** Track goals scored from flicks.
-3. **Week 3: Defensive shape.** Never be the third chaser; count missed slides per match.
-4. **Week 4: Item timing.** Auto-use off; note when each item was used and whether it changed the play.
+## 4-week focus
+1. **Fakes + pre-aim:** every shot in a match is pre-aimed; try one fake per match.
+2. **Ball tech:** zero wasted dribbles; flick-catch at least one slide per match.
+3. **Team shape:** layered D, refill rule, crash every parry.
+4. **Ranked craft:**
+   - Illegal: ban the enemy's main item; sequence your gadgets.
+   - Legal: curve-first offence.
+   - Close-outs: play Last Chance correctly (hold the ball when down one; win it back at the buzzer when up one).
 
-## Track after every session (add to progress-log.md)
-Goals / shots on target, missed slides, times caught ball-hogging, flick-shot success rate.
+## Track (progress-log.md)
+Rank/Elo per queue · goals by type (curve, flick, volley, rebound) · fakes attempted/landed · wasted dribbles · missed slides · saves per match as keeper

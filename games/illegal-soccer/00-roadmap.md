@@ -1,29 +1,20 @@
-# Illegal Soccer: skill tree
-Research status: wave 1, web-search summaries only (see sources.md).
+# Illegal Soccer: skill tree (beginner → mastery)
+Research: 2 waves, 200 claims (22 confirmed from official sources). Search-only access, so no video transcripts yet.
 
-## 1. Fundamentals
-- Controls and keybinds (PC / controller / mobile), remapping
-- Settings: assisted passes, auto item use, curve sensitivity
-- Stamina management: sprint bursts, cost of each action
-- Passing vs shooting, avoiding ball-hogging
-- Keeper zone rules
-## 2. Mechanics
-- Power shot (charge), flick shot, flick-slide
-- Curve: wall-kick curve, flick-up curve, bicycle kick (curve)
-- Lob, lob volley
-- Dribbling: wall pass, pass-tackle, flick-and-catch
-- Slide tackle timing, off-ball tackles
-- Goalkeeping: catch, punch, dive, reading the indicator
-## 3. Items
-- Tier list and drop rates; each of the 16 items' use cases
-- Item timing (save vs use), item counters
-- Kickoff items (Rocket Punch), defensive items (Barricades, Forcefield), mobility (Jetpack, Grapple)
-## 4. Game sense / team play (4v4)
-- Pressing shape (don't triple-chase), cover the receiver
-- Kickoff plays, rebounds, Last Chance and overtime situations
-## 5. Modes and meta
-- Illegal Ranked vs Legal Ranked, placements, Elo
-- Clubs, private servers with bots for drills
-- Current patch changes (Grenade, Sledgehammer, player cards)
-## 6. Mental
-- Tilt in chaotic item games, playing for team not stats
+## 1. Fundamentals → fundamentals.md
+Controls/keybinds · settings (assists, auto-item off, curve sensitivity) · stamina · pass > shoot · keeper box
+## 2. Shooting → mechanics/flick-shot.md, curve-shot.md, volleys-and-bicycle.md, shot-cancel-and-fakes.md
+Full-charge flick · curve input + held-at-contact rule · wall-kick / flick-up / fire-ball / bicycle curves · kick/pass/lob volleys · wall lift · shot cancel + fake-curve · pre-aim (mid-charge camera slow)
+## 3. Ball control → mechanics/dribble-tech.md
+Dribble-as-dodge timing · flick-catch vs slides · flick-recollect · sprint-flick · charge-bait · wall pass · flick tackle · stamina reserve
+## 4. Goalkeeping → mechanics/goalkeeping.md
+Box rules · no-push dive · angle/lean · late dive vs fakes · punch the man · outlet pass · barricade near/far · rotation
+## 5. Items → strategy/items.md
+Per-item use + counter · bans · sequencing · loadouts · mastery/shop
+## 6. Team play → strategy/tactics.md
+Layered D · press angle · kickoffs · crash the parry · support spot · refill rule · Last Chance / OT · Legal vs Illegal
+## 7. Ranked & meta → strategy/ranked.md, meta/current-patch.md
+## 8. Mental
+Tilt in chaos games · comms in solo queue · one focus per match
+## Open questions (need in-game tests or video access)
+Current curve button · 6 s catch immunity · OT format · stamina regen · box/catch/punch ranges · Hall of Fame players · ranked seasons

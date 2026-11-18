@@ -1,32 +1,94 @@
 # Sources
-All gathered through web-search summaries on 2026-11-18. Pages weren't opened directly (network blocked), so every claim is unverified.
+Gathered via web-search summaries (2026-11-18). Pages, YouTube and Reddit weren't directly reachable. Tier 1 = official.
 
-| Tier | Claims | URL |
-|---|---|---|
-| 1 | 2 | https://illegalsoccer.com/ |
-| 1 | 1 | https://www.roblox.com/events/5653953232750379634 |
-| 3 | 1 | https://allthings.how/illegal-soccer-how-to-curve-shot-controller-and-keyboard/ |
-| 3 | 1 | https://allthings.how/illegal-soccer-on-roblox-how-to-play-controls-and-item-boxes/ |
-| 3 | 1 | https://illegalsoccer.wiki/guides/controls/ |
-| 3 | 1 | https://illegalsoccergame.wiki/skills/goalie/ |
-| 3 | 1 | https://illegalsoccerroblox.wiki/guides/ranked-and-clubs/ |
-| 3 | 1 | https://savepointmag.com/2026/10/07/illegal-soccer-roblox-en/ |
-| 4 | 1 | https://allthings.how/illegal-soccer-controls-and-best-items-guide-roblox/ |
-| 4 | 1 | https://allthings.how/illegal-soccer-dribbling-guide-stamina-costs-and-7-ball-techs/ |
-| 4 | 1 | https://allthings.how/illegal-soccer-roblox-how-to-change-keybinds-and-match-settings/ |
-| 4 | 3 | https://allthings.how/illegal-soccer-roblox-tips-for-flick-shots-and-goalkeeper-saves/ |
-| 4 | 1 | https://bloxrant.com/illegal-soccer-beginner-guide |
-| 4 | 1 | https://illegal-soccer.com/how-to-curve/ |
-| 4 | 4 | https://illegalsoccer-roblox.wiki/guides/defense/ |
-| 4 | 1 | https://illegalsoccer.wiki/guides/advanced-tips/ |
-| 4 | 2 | https://illegalsoccer.wiki/guides/how-to-score/ |
-| 4 | 1 | https://illegalsoccergame.wiki/skills/dribbling-guide/ |
-| 4 | 1 | https://illegalsoccergame.wiki/skills/how-to-curve-shot/ |
-| 4 | 1 | https://illegalsoccergame.wiki/skills/how-to-flick/ |
-| 4 | 2 | https://progameguides.com/roblox/roblox-illegal-soccer-items-tier-list/ |
-| 4 | 1 | https://robloxdatabase.com/guides/illegal-soccer-controls/ |
-| 4 | 1 | https://www.aprasi.com/blogs/trending-topics/curve-shots-illegal-soccer-roblox-guide |
-| 4 | 1 | https://www.illegal-soccer.wiki/guide/Illegal-Soccer-beginner-guide |
-| 4 | 1 | https://www.sportskeeda.com/roblox-news/all-items-illegal-soccer |
-| 5 | 3 | https://illegalsoccergame.wiki/guide/roblox-tips/ |
-| 5 | 1 | https://zekehub.com/games/illegal-soccer |
+| Tier | Claims | Confirmed | URL |
+|---|---|---|---|
+| 1 | 21 | 12 | https://illegalsoccer.com/ |
+| 1 | 4 | 4 | https://www.roblox.com/events/5653953232750379634 |
+| 1 | 3 | 2 | https://www.roblox.com/events/8505384876533482130 |
+| 1 | 2 | 2 | https://www.roblox.com/events/5366948543695291147 |
+| 1 | 1 | 0 | https://discord.com/invite/repotted |
+| 1 | 1 | 1 | https://www.roblox.com/events/8149219616409911965 |
+| 1 | 1 | 0 | https://x.com/repotted_?lang=en |
+| 2 | 5 | 0 | https://www.sportskeeda.com/roblox-news/illegal-soccer-ranked-mode-guide |
+| 2 | 4 | 0 | https://timesaver.gg/blog/illegal-soccer-codes |
+| 2 | 3 | 0 | https://www.youtube.com/watch?v=ipzijRV3PPM |
+| 2 | 2 | 0 | https://allthings.how/illegal-soccer-how-to-curve-shot-controller-and-keyboard/ |
+| 2 | 1 | 0 | https://discord.com/servers?query=pro+zone |
+| 2 | 1 | 0 | https://www.youtube.com/watch?v=5GmlviOX4YU |
+| 2 | 1 | 0 | https://www.youtube.com/watch?v=MtSsB7OYmi8 |
+| 3 | 8 | 0 | https://illegalsoccergame.wiki/skills/goalie/ |
+| 3 | 6 | 0 | https://illegalsoccergame.wiki/skills/how-to-cancel-a-shot/ |
+| 3 | 5 | 0 | https://allthings.how/illegal-soccer-s-new-weapons-and-reworked-shop-explained/ |
+| 3 | 5 | 0 | https://illegalsoccer-roblox.wiki/guides/defense/ |
+| 3 | 4 | 0 | https://illegalsoccer.wiki/guides/how-to-score/ |
+| 3 | 4 | 0 | https://illegalsoccerroblox.wiki/guides/ranked-and-clubs/ |
+| 3 | 4 | 0 | https://savepoint.com.br/2026/10/07/illegal-soccer-roblox/ |
+| 3 | 3 | 0 | https://allthings.how/illegal-soccer-on-roblox-how-to-play-controls-and-item-boxes/ |
+| 3 | 3 | 0 | https://allthings.how/illegal-soccer-roblox-tips-for-flick-shots-and-goalkeeper-saves/ |
+| 3 | 3 | 0 | https://savepointmag.com/2026/10/07/illegal-soccer-roblox-en/ |
+| 3 | 2 | 0 | https://illegalsoccergame.wiki/community/clubs/ |
+| 3 | 2 | 0 | https://progameguides.com/roblox/roblox-illegal-soccer-items-tier-list/ |
+| 3 | 2 | 0 | https://www.youtube.com/watch?v=5fUf9wHkf6k |
+| 3 | 1 | 0 | https://discord.com/servers/illegal-soccer-official-1471117830240997378 |
+| 3 | 1 | 0 | https://en.namu.wiki/w/illegal%20soccer |
+| 3 | 1 | 0 | https://gamefaqs.gamespot.com/roblox/724685-illegal-soccer/data |
+| 3 | 1 | 0 | https://illegalsoccer.wiki/guides/controls/ |
+| 3 | 1 | 0 | https://illegalsoccerroblox.wiki/ |
+| 3 | 1 | 0 | https://mxblox.com/games/illegal-soccer |
+| 3 | 1 | 0 | https://rivalducks.com/apps/radar/games/10155360168-illegal-soccer |
+| 3 | 1 | 0 | https://scriptblox.com/game/126987974021910-illegal-soccer |
+| 3 | 1 | 0 | https://stealthygaming.com/illegal-soccer-clubs-update/ |
+| 3 | 1 | 0 | https://www.pockettactics.com/illegal-soccer-codes |
+| 3 | 1 | 0 | https://www.sportskeeda.com/roblox-news/when-next-illegal-soccer-update |
+| 3 | 1 | 0 | https://www.tiktok.com/@froggo_rbx/video/7685502634551184663 |
+| 3 | 1 | 0 | https://www.youtube.com/watch?v=cF-qVV4Z25Q |
+| 3 | 1 | 0 | https://www.youtube.com/watch?v=n8tJAdfBqOY |
+| 4 | 6 | 0 | https://allthings.how/illegal-soccer-dribbling-guide-stamina-costs-and-7-ball-techs/ |
+| 4 | 6 | 0 | https://illegalsoccergame.wiki/progression/ranked/ |
+| 4 | 5 | 0 | https://illegalsoccergame.wiki/guide/roblox-tips/ |
+| 4 | 3 | 0 | https://allthings.how/illegal-soccer-controls-and-best-items-guide-roblox/ |
+| 4 | 3 | 0 | https://allthings.how/roblox-illegal-soccer-guide-best-items-and-how-to-score/ |
+| 4 | 3 | 0 | https://allthings.how/roblox-illegal-soccer-items-tier-list/ |
+| 4 | 3 | 0 | https://illegal-soccer-wiki.wiki/en/guides/illegal-soccer-roblox-guide/ |
+| 4 | 3 | 0 | https://www.aprasi.com/blogs/trending-topics/curve-shots-illegal-soccer-roblox-guide |
+| 4 | 2 | 0 | https://beebom.com/illegal-soccer-tier-list/ |
+| 4 | 2 | 0 | https://grokipedia.com/page/Illegal_Soccer_Roblox_game |
+| 4 | 2 | 0 | https://illegal-soccer.com/how-to-curve/ |
+| 4 | 2 | 0 | https://illegalsoccer-wiki.wiki/techniques/illegal-soccer-super-shot/ |
+| 4 | 2 | 0 | https://illegalsoccer-wiki.wiki/techniques/illegal-soccer-volley/ |
+| 4 | 2 | 0 | https://illegalsoccer.wiki/guides/advanced-tips/ |
+| 4 | 2 | 0 | https://illegalsoccer.wiki/guides/ranked-matches/ |
+| 4 | 2 | 0 | https://illegalsoccergame.wiki/progression/leaderboards/ |
+| 4 | 2 | 0 | https://illegalsoccergame.wiki/progression/levels/ |
+| 4 | 2 | 0 | https://illegalsoccergame.wiki/skills/dribbling-guide/ |
+| 4 | 2 | 0 | https://www.illegal-soccer-wiki.wiki/en/ |
+| 4 | 1 | 0 | https://allthings.how/illegal-soccer-on-roblox-best-beginner-tips-for-your-first-match/ |
+| 4 | 1 | 0 | https://allthings.how/illegal-soccer-roblox-how-to-change-keybinds-and-match-settings/ |
+| 4 | 1 | 0 | https://allthings.how/roblox-illegal-soccer-scoring-explained-long-goals-and-volley-bonuses/ |
+| 4 | 1 | 0 | https://bloxodes.com/articles/roblox-illegal-soccer-items-tier-list |
+| 4 | 1 | 0 | https://bloxrant.com/illegal-soccer-beginner-guide |
+| 4 | 1 | 0 | https://illegalsoccer-roblox.wiki/guides/controls/ |
+| 4 | 1 | 0 | https://illegalsoccer-wiki.wiki/guide/illegal-soccer-controls/ |
+| 4 | 1 | 0 | https://illegalsoccergame.wiki/guide/moves/ |
+| 4 | 1 | 0 | https://illegalsoccergame.wiki/skills/how-to-curve-shot/ |
+| 4 | 1 | 0 | https://illegalsoccergame.wiki/skills/how-to-do-a-bicycle-kick/ |
+| 4 | 1 | 0 | https://illegalsoccergame.wiki/skills/how-to-flick/ |
+| 4 | 1 | 0 | https://illegalsoccergame.wiki/support/settings/ |
+| 4 | 1 | 0 | https://illegalsoccerroblox.wiki/players/goalkeeper-box/ |
+| 4 | 1 | 0 | https://robloxdatabase.com/guides/illegal-soccer-controls/ |
+| 4 | 1 | 0 | https://www.illegal-soccer.wiki/ |
+| 4 | 1 | 0 | https://www.illegal-soccer.wiki/guide/Illegal-Soccer-beginner-guide |
+| 4 | 1 | 0 | https://www.illegal-soccer.wiki/guide/Illegal-Soccer-roblox |
+| 4 | 1 | 0 | https://www.illegal-soccer.wiki/items/Illegal-Soccer-items |
+| 4 | 1 | 0 | https://www.pcgamesn.com/roblox/illegal-soccer-codes |
+| 4 | 1 | 0 | https://www.sportskeeda.com/roblox-news/all-items-illegal-soccer |
+| 4 | 1 | 0 | https://www.technerdiness.com/roblox/illegal-soccer-tier-list/ |
+| 4 | 1 | 0 | https://www.tiktok.com/@froggo_rbx/video/7683988423736151318 |
+| 4 | 1 | 0 | https://www.tiktok.com/discover/como-dominar-el-tiro-con-curva-futbol-prohibido |
+| 4 | 1 | 0 | https://www.tiktok.com/discover/illegalsoccer-gk-tip |
+| 4 | 1 | 0 | https://www.youtube.com/watch?v=4_1_Umnmkvs |
+| 4 | 1 | 0 | https://www.youtube.com/watch?v=4dVaBwvxuCo |
+| 5 | 3 | 0 | https://www.youtube.com/watch?v=M7qMawZ4y-A |
+| 5 | 1 | 0 | https://www.youtube.com/watch?v=jKVrUzl8p30 |
+| 5 | 1 | 0 | https://zekehub.com/games/illegal-soccer |

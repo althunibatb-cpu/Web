@@ -8,7 +8,7 @@ Most-cited reliable way to beat the keeper: high shots to the top of the net are
 1. Flick (Q) **while moving** (from a standstill is the classic mistake).
 2. Jump after the ball.
 3. Hold shoot until the charge meter is **full**, aim at the top of the net, release.
-Variant: flick → jump → slide. The slide adds distance and hides the kick animation.
+Variant: flick → jump → slide. The slide adds distance and hides the kick. ⚠️ Since Sep 8 you can't slide after a volley lock, so slide before the lock or not at all.
 ## Drill
 Private server with bots: 20 flick shots from the edge of the box. Success = 12/20 on target, 6/20 goals vs bot keeper.
 ## Common mistakes

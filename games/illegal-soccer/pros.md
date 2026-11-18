@@ -1,29 +1,38 @@
-# Pros, creators and communities
-Not mapped yet: YouTube, Twitch, Reddit and Discord were unreachable from this session.
-Known so far:
-- Official Discord: https://discord.com/servers/illegal-soccer-official-1471117830240997378
-- Guide video: https://www.youtube.com/watch?v=M7qMawZ4y-A
-- Gameplay with the new mastery items: https://www.youtube.com/watch?v=8w3NshD1DSE
-- Developer: Repotted (Roblox group)
+# Experts, creators and communities
+There's no visible pro tier yet: no public tournament results, and no named #1 player or Hall of Fame list is indexed. Competitive play lives in Discords.
 
-## YouTube videos to watch (found 2026-11-18; transcripts not pulled yet, YouTube unreachable)
-**Start here**
-- [Illegal Soccer] The OFFICIAL GUIDE In 8 MINUTES! (Curve Shot, Tech, Flicks): https://www.youtube.com/watch?v=hxCqfJmwoeE
-- 24 PRO Tips YOU SHOULD KNOW in ILLEGAL SOCCER!: https://www.youtube.com/watch?v=MtSsB7OYmi8
-- Ultimate Guide & Tips to Dominate: https://www.youtube.com/watch?v=jKVrUzl8p30
-- Illegal Soccer Beginner Guide (Tier List, Best Items & Settings): https://www.youtube.com/watch?v=qID0va3vYyE
-- Illegal Soccer TIPS & TRICKS You NEED to Know!: https://www.youtube.com/watch?v=4_1_Umnmkvs
-- Illegal Soccer Guide! (Codes, Tips & Tricks, Best Items): https://www.youtube.com/watch?v=M7qMawZ4y-A
-**Shooting / curve**
-- Insanely Useful Shooting Techs (Full Tutorial): https://www.youtube.com/watch?v=ipzijRV3PPM
-- How To Hit The New Curve Shot Every Time: https://www.youtube.com/watch?v=QYGbZzOK1g8
-- The new curve TECH: https://www.youtube.com/watch?v=ByK7JSBUJx4
-- How To Master Curve Shots: https://www.youtube.com/watch?v=Ozrau3Uk8M4
-- How To CURVE SHOT: https://www.youtube.com/watch?v=7eCasEWbblE
-- How To Shoot a CURVE BALL: https://www.youtube.com/watch?v=dG31xyPpyX4
-- Flick Shot/Bicycle Kick Tutorial (Zreamsss): https://www.youtube.com/watch?v=5GmlviOX4YU
-- Shorts: https://www.youtube.com/shorts/TqsAFngO3FY · https://www.youtube.com/shorts/T0D0INsJK-0 · https://www.youtube.com/shorts/KmUFnOMvY90
-**Dribbling**
-- The ULTIMATE Dribbling Guide You NEED: https://www.youtube.com/watch?v=5fUf9wHkf6k
-**Other**
-- Illgeal Soccer Tutorial: https://www.youtube.com/watch?v=UrAH_asKlok · NEW CODE & HOW TO PLAY: https://www.youtube.com/watch?v=9xrTnX6E_ZU · Mastery items gameplay: https://www.youtube.com/watch?v=8w3NshD1DSE
+## Creators who teach
+- **Chrisu** (YouTube), the main teacher (attribution from search sidebars):
+  - [24 PRO Tips](https://www.youtube.com/watch?v=MtSsB7OYmi8) (~148k views)
+  - [OFFICIAL GUIDE in 8 min](https://www.youtube.com/watch?v=hxCqfJmwoeE)
+  - [PRO GUIDE TO EVERY ITEM](https://www.youtube.com/watch?v=zDGy8elLkGk)
+  - [PRO TIER LIST](https://www.youtube.com/watch?v=SHLS2aDunOI)
+- **Zreamsss**: [flick shot / bicycle tutorial](https://www.youtube.com/watch?v=5GmlviOX4YU)
+- Channel not identified yet:
+  - [Insanely Useful Shooting Techs](https://www.youtube.com/watch?v=ipzijRV3PPM)
+  - [ULTIMATE Dribbling Guide](https://www.youtube.com/watch?v=5fUf9wHkf6k)
+  - [Master Dribbling in 8 min](https://www.youtube.com/watch?v=aHopkThY9cg)
+  - [Best Shooting Tutorial](https://www.youtube.com/watch?v=KJZOdYkVgzw)
+  - [Fainting Curve Shots](https://www.youtube.com/watch?v=SbDt4yS-L50)
+- **High-level gameplay:**
+  - [11 Hall of Fames vs 20 ranked](https://www.youtube.com/watch?v=64Ufl98g0m4)
+  - [Has a Competitive Side](https://www.youtube.com/watch?v=n8tJAdfBqOY) (links a Discord league)
+  - [Best GK in Ranked](https://www.youtube.com/watch?v=h2435T75UCM)
+  - [World Class](https://www.youtube.com/watch?v=ahNBiVqqNxg)
+- **TikTok tech clips:** @froggo_rbx, @redcapperr, @fru1ture, @nikobloxs, @netblox.en, @sentersych
+- **Twitch:** almost nothing (ezraisigma)
+
+## Communities
+- **Official:**
+  - Repotted Discord [discord.gg/repotted](https://discord.com/invite/repotted) (~45k; the real changelog, leagues, events)
+  - X [@Repotted_](https://x.com/repotted_)
+  - Roblox group 4081626
+  - [illegalsoccer.com](https://illegalsoccer.com/) update log
+- **Competitive Discords:**
+  - **Zone X** ("[I:S] Zone X | Global | 70K Robux", ~4.5k), the main league server
+  - SPL league
+  - Blaze Strikers
+  - "Illegal Soccer Official !" (unofficial, ~3.4k; watch for trade scams)
+- **Wikis:** none official. illegalsoccerroblox.wiki is the most careful; illegalsoccergame.wiki is unreliable. Sportskeeda and allthings.how are the better editorial sources.
+- **Non-English:** search "Futebol Proibido" (PT-BR), "Fútbol Prohibido" (ES) or "ฟุตบอลเถื่อน" (TH). Mostly beginner content.
+- ⚠️ Cheat scripts are common (AutoScore and similar). Expect cheaters; don't use them (ban risk).
